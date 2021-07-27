@@ -1,2 +1,2 @@
 # freepik
-Download Gambar Inspirasi
+Download Gambar Inspirasi, Baca dulu storynya agar lebih mengena 😅
