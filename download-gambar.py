@@ -1,31 +1,35 @@
-import csv
-import requests # to get image from the web
-import shutil # to save it locally
+# dibuat dari Ruèma bersama orang dalam 
 
-datax = []
+import csv # bermain dengan csv hasil scrape
+import requests # untuk mengakses gambar ke web
+import shutil # untuk simpan di lokal
 
+datax = [] 
+
+# kita mulai baca filenya dulu
 with open('freepik.csv') as csv_file:
-    csv_reader = csv.reader(csv_file, delimiter=",")
+    csv_reader = csv.reader(csv_file, delimiter=",") # rubah dilimiter sesuai dengan csv
     for row in csv_reader:
         datax.append(row)
 labels = datax.pop(0)
 
 for data in datax:
-    print(data[0])
+    # print(data[0]) # kolom pertama untuk nomor
 
-    ## Set up the image URL and filename
-    image_url = data[0]
+    ## inisialisasi nama file dan url
+    image_url = data[1] # kolom kedua untuk url
     filename = image_url.split("/")[-1]
 
-    # Open the url image, set stream to True, this will return the stream content.
+    # saatnya memulai membuka dan stream untuk menjadi konten stream
     r = requests.get(image_url, stream = True)
 
-    # Check if the image was retrieved successfully
+    # cek jika file berhasil didapatkan
     if r.status_code == 200:
-        # Set decode_content value to True, otherwise the downloaded image file's size will be zero.
+
+        ## buat decode_content value jadi True, jadi hasil besar download akan jadi kosong. otherwise the downloaded image file's size will be zero.
         r.raw.decode_content = True
         
-        # Open a local file with wb ( write binary ) permission.
+        ## langsung menyimpan file dengan wb ( write binary ) permission.
         with open(filename,'wb') as f:
             shutil.copyfileobj(r.raw, f)
             
